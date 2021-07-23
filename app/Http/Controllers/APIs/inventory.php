@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\APIs;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\requestInsertInventory;
+use App\Http\Requests\requestUpdateInventory;
+use App\Models\Inventory as ModelsInventory;
 use Illuminate\Http\Request;
 
 class inventory extends Controller
@@ -23,9 +26,18 @@ class inventory extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(requestInsertInventory $request)
     {
-        //
+        if(!$request->isJson()){
+            return response()->json([
+                'Error' => 'Inautorizado'
+            ], 401);      
+        }else{ 
+            $inventory = ModelsInventory::create($request->all());
+
+            return response()->json($inventory, 201);
+        }
+
     }
 
     /**
@@ -34,9 +46,10 @@ class inventory extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show(ModelsInventory $inventory)
+    {   
+        $inventory->get();
+        return $inventory->all();
     }
 
     /**
@@ -46,9 +59,13 @@ class inventory extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(requestUpdateInventory $request)
     {
-        //
+        $id = $request->id;
+        ModelsInventory::where('id', $id)->update($request->all());
+
+        $inventory= new ModelsInventory();
+        return response()->json($inventory->all(), 201);
     }
 
     /**
