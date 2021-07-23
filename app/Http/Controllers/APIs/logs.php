@@ -69,9 +69,6 @@ class logs extends Controller
                     "Valor de la caracteristica =>". $arrayCharacteristics[$caracteristicaValor]
 
                 ]);
-                
-
-                
             }
 
         
