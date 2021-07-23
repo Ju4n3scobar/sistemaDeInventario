@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Logs extends Model
 {
+    protected $table = 'logs';
+    protected $fillable = ['id', 'tipo', 'user', 'characteristics', 'employee', 'motivo', 'inventory_id'];
+
     use HasFactory;
 }
