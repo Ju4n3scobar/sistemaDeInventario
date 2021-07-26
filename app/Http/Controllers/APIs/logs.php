@@ -53,23 +53,24 @@ class logs extends Controller
         for($i=1; $i<=$ultimoRegistro; $i++){
             $characteristics = $logs->where('id', $i)->first();
             $arrayCharacteristics = explode ( '=>', $characteristics->characteristics );
-            $contador=0;
-            foreach ( $arrayCharacteristics as $palabra ) {
-                
-                $contador = $contador+1;
-                
+            foreach ( $arrayCharacteristics as $palabra=>$valor ) {
+                $respuesta[$valor]=$palabra;
             }
-            
-            for($z=2; $z<$contador; $z+2){
-                $caracteristica=$z-2;
-                $caracteristicaValor=$z-1;
 
-                return response()->json([
-                    "Caracteristica =>". $arrayCharacteristics[$caracteristica],
-                    "Valor de la caracteristica =>". $arrayCharacteristics[$caracteristicaValor]
+            return response()->json([
+                $respuesta
+            ]);
 
-                ]);
-            }
+            // for($z=2; $z<$contador; $z+2){
+            //     $caracteristica=$z-2;
+            //     $caracteristicaValor=$caracteristica;
+
+            //     echo "Caracteristica => ". $arrayCharacteristics[$caracteristicaValor];
+            //     // echo "Valor de la caracteristica => ". $arrayCharacteristics[$caracteristicaValor];
+                
+
+                
+            // }
 
         
     }

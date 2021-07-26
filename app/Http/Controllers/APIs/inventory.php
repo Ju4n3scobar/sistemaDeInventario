@@ -61,11 +61,18 @@ class inventory extends Controller
      */
     public function update(requestUpdateInventory $request)
     {
-        $id = $request->id;
-        ModelsInventory::where('id', $id)->update($request->all());
+        if(!$request->isJson()){
+            return response()->json([
+                'Error' => 'Inautorizado'
+            ], 401);      
+        }else{ 
+            $id = $request->id;
+            ModelsInventory::where('id', $id)->update($request->all());
 
-        $inventory= new ModelsInventory();
-        return response()->json($inventory->all(), 201);
+            $inventory= new ModelsInventory();
+            return response()->json($inventory->all(), 201);
+        }
+        
     }
 
     /**
