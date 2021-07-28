@@ -26,7 +26,7 @@ class requestStoreLogs extends FormRequest
         return [
             'tipo'=>'required',
             'user'=>'required|min:5',
-            'charecteristics' =>'required',
+            'characteristics' =>'required',
             'employee' => 'required',
             'motivo' => 'required',
             'inventory_id' => 'required',

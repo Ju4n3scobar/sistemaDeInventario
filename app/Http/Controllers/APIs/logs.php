@@ -4,6 +4,7 @@ namespace App\Http\Controllers\APIs;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\requestStoreLogs;
+use App\Models\Inventory;
 use App\Models\Logs as ModelsLogs;
 use Illuminate\Http\Request;
 
@@ -32,9 +33,59 @@ class logs extends Controller
                 'Error' => 'Inautorizado'
             ], 401);      
         }else{ 
-            $log = ModelsLogs::create($request->all());
+            if($request->tipo == "Registrar"){
+                $inventory_id= $request->inventory_id;
+                $tipo=$request->tipo;
+                $dat =ModelsLogs::where(function ($query) use ($tipo,$inventory_id) {
+                    $query->where('tipo', $tipo)
+                          ->where('inventory_id', $inventory_id);
+                  })->get();
+                
+                if($dat !== [] ){
+                    // -----------------------------
+                    // REALIZADO CON SHELL_EXEC
+                    // ----------------------------
+                    $cmd = shell_exec("systeminfo");
+                    $respuesta1=utf8_encode($cmd);
+                    $respuesta2 =str_replace(' ', '', $respuesta1);
+                    $contenidoRemplazado = str_replace("\n", "," ,$respuesta2);
+                    $arrayCharacteristics = explode ( ',', $contenidoRemplazado);
+                    $contador=0;
+                    foreach ( $arrayCharacteristics as $palabra ) {
+                        $carac = explode ( ':', $palabra);
+                        $contador++;
+                        $respuesta[$contador]=$carac[0];
+                        $contador++;
+                        if(isset($carac[1])){
+                            $respuesta[$contador]=$carac[1];
+                        }else{
+                            $carac[1]=' ';
+                            $respuesta[$contador]=$carac[1];
+                        }
+                        
+                    }
+                    $respuestaString=implode ($respuesta);
+                    $log = new ModelsLogs();
 
-            return response()->json($log, 201);
+                    $log->tipo = "Registrar";
+                    $log->user = $request->user;
+                    $log->characteristics=$respuestaString;
+                    $log->employee=$request->employee;
+                    $log->motivo=$request->motivo;
+                    $log->inventory_id=$request->inventory_id;
+                    
+                    $log->save();
+                    
+                    return response()->json([
+                        $respuesta,
+                        $log
+                    ]);
+                } else {
+                    return response()->json([
+                        'Error' => 'Este equipo ya fue registrado en el sistema con sus caracteristicas de fabrica'
+                    ], 401);
+                }
+        }
         }
     }
 

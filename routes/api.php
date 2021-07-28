@@ -24,7 +24,7 @@ Route::post('storeInventory', [inventory::class, 'store'])->name('insertInventor
 
 Route::get('showInventory', [inventory::class, 'show'])->name('listInventory');
 
-Route::post('updateInventory', [inventory::class, 'update'])->name('updateInventory');
+Route::put('updateInventory', [inventory::class, 'update'])->name('updateInventory');
 
 Route::post('storeLogs', [logs::class, 'store'])->name('storeLogs');
 
