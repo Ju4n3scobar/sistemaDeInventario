@@ -9,25 +9,26 @@ use Illuminate\Http\Request;
 
 class ChangeCharacteristics extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function changeCharacteristics(requestStoreLogs $request)
     {
-        $logs_api = new logs;
-        $log = $logs_api->asignacion($request);
-        if($log){
+        if (!$request->isJson()) {
             return response()->json([
-                'Response' => 'Usuario actualizado correctamente',
-                $log
-            ], 201);
-        } else {
-            return response()->json([
-                'Error' => 'Hubo un error al actualizar este usuario'
+                'Error' => 'Inautorizado'
             ], 401);
+        } else {
+            $logs_api = new logs;
+            $response_logs_api = $logs_api->assignmentModelRequest($request);
+            if ($response_logs_api) {
+                return response()->json([
+                    'Response' => 'Usuario actualizado correctamente',
+                    $response_logs_api
+                ], 201);
+            } else {
+                return response()->json([
+                    'Error' => 'Hubo un error al actualizar este usuario'
+                ], 401);
+            }
         }
     }
-
 }

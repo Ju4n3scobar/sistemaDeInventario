@@ -3,6 +3,9 @@
 use App\Http\Controllers\APIs\inventory;
 use App\Http\Controllers\APIs\logs;
 use App\Http\Controllers\APIs\Logs\ChangeCharacteristics;
+use App\Http\Controllers\APIs\Logs\ReassignEquipment;
+use App\Http\Controllers\APIs\Logs\RegisterEquipment;
+use App\Http\Controllers\APIs\Logs\ReturnCharacteristics;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,17 +24,24 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 Route::post('storeInventory', [inventory::class, 'store'])->name('insertInventory');
 
 Route::get('showInventory', [inventory::class, 'show'])->name('listInventory');
 
 Route::put('updateInventory', [inventory::class, 'update'])->name('updateInventory');
 
-Route::post('storeLogs', [logs::class, 'store'])->name('storeLogs');
 
-Route::get('showCharacteristics', [logs::class, 'returnCharacteristics']);
+Route::post('storeLogs', [logs::class, 'store'])->name('storeLogs');
 
 Route::post('changeCharacteristics', [ChangeCharacteristics::class, 'changeCharacteristics']);
 
+Route::post('reassignEquipment', [ReassignEquipment::class, 'reassignEquipment']);
+
+Route::post('registerEquipment', [RegisterEquipment::class, 'registerEquipment']);
+
+Route::get('showCharacteristics', [ReturnCharacteristics::class, 'returnCharacteristics']);
+
 Route::get('showLogs', [logs::class, 'show']);
+
 
