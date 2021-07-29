@@ -24,11 +24,12 @@ class requestStoreLogs extends FormRequest
     public function rules()
     {
         return [
-            'tipo'=>'required',
+            'id'=>'required',
+            'type'=>'required',
             'user'=>'required|min:5',
             'characteristics' =>'required',
             'employee' => 'required',
-            'motivo' => 'required',
+            'reason' => 'required',
             'inventory_id' => 'required',
         ];
     }
