@@ -29,10 +29,10 @@ Route::post('storeInventory', [inventory::class, 'store'])->name('insertInventor
 
 Route::get('showInventory', [inventory::class, 'show'])->name('listInventory');
 
+Route::get('consultInventory', [inventory::class, 'consult'])->name('consultInventory');
+
 Route::put('updateInventory', [inventory::class, 'update'])->name('updateInventory');
 
-
-Route::post('storeLogs', [logs::class, 'store'])->name('storeLogs');
 
 Route::post('changeCharacteristics', [ChangeCharacteristics::class, 'changeCharacteristics']);
 

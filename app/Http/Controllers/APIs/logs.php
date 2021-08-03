@@ -70,7 +70,7 @@ class logs extends Controller
         }
         return response()->json([
             $logs,
-            'Todas las caracteristicas, segun el id al registro que pertenecen, listas para ser mostradas' => $characteristics_response
+            $characteristics_response
         ]);
     }
 }

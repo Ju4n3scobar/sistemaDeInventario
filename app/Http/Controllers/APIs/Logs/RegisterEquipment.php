@@ -8,6 +8,8 @@ use App\Http\Requests\requestStoreLogs;
 use App\Models\Logs as ModelsLogs;
 use Illuminate\Http\Request;
 
+use function PHPSTORM_META\type;
+
 class RegisterEquipment extends Controller
 {
 
@@ -42,6 +44,10 @@ class RegisterEquipment extends Controller
                         'Error' => 'Este equipo ya fue registrado en el sistema con sus caracteristicas de fabrica'
                     ], 401);
                 }
+            } else {
+                return response()->json([
+                    'Error' => 'Esta ruta no es la adecuada para esta accion'
+                ], 401);
             }
         }
     }
