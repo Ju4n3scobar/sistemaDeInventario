@@ -29,6 +29,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "App\\": "app/",
             "Tests\\": "tests/"
         }
     },
@@ -56,4 +57,6 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true
+
+    
 }

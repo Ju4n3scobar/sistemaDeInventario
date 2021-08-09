@@ -6,6 +6,7 @@ use App\Http\Controllers\APIs\Logs\ChangeCharacteristics;
 use App\Http\Controllers\APIs\Logs\ReassignEquipment;
 use App\Http\Controllers\APIs\Logs\RegisterEquipment;
 use App\Http\Controllers\APIs\Logs\ReturnCharacteristics;
+use App\Models\Logs as ModelsLogs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,7 +35,7 @@ Route::get('consultInventory', [inventory::class, 'consult'])->name('consultInve
 Route::put('updateInventory', [inventory::class, 'update'])->name('updateInventory');
 
 
-Route::post('changeCharacteristics', [ChangeCharacteristics::class, 'changeCharacteristics']);
+Route::post('changeCharacteristics', [logs::class, 'assignmentModelRequest']);
 
 Route::post('reassignEquipment', [ReassignEquipment::class, 'reassignEquipment']);
 

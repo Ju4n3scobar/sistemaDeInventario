@@ -26,10 +26,10 @@ class inventory extends Controller
 
     }
 
-    public function consult(requestConsultInventory $request, ModelsInventory $inventory_model)
+    public function consult(requestConsultInventory $request)
     {
-        $consult_inventory = $inventory_model->select('name')->where('id', $request->id);
-        $inventory_response = $consult_inventory->first();
+        $consult_inventory = ModelsInventory::select("name")->where('id', $request->id);
+        $inventory_response = $consult_inventory->get();
         return response()->json($inventory_response, 201);
         // if(!$request->isJson()){
         //     return response()->json([
@@ -43,10 +43,14 @@ class inventory extends Controller
 
     }
 
-    public function show(ModelsInventory $inventory_model)
+    public function show()
     {   
-        $inventory_model->get();
-        return $inventory_model->all();
+        $inventory = ModelsInventory::all();
+        $total_records = count($inventory);
+        for ($i=1; $i <= $total_records; $i++) { 
+            $records[$i] = ModelsInventory::select("name")->where("id", $i)->first();
+        }
+        return response()->json($records, 201);
     }
     
     public function update(requestUpdateInventory $request)

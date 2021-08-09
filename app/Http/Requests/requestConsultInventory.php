@@ -24,7 +24,7 @@ class requestConsultInventory extends FormRequest
     public function rules()
     {
         return [
-            'id'=>'required|min:1|',
+            'id'=>'required',
         ];
     }
 }
