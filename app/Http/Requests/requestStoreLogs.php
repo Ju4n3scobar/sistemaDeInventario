@@ -27,7 +27,7 @@ class requestStoreLogs extends FormRequest
             'id'=>'required',
             'type'=>'required',
             'user'=>'required|min:5',
-            'characteristics' =>'required|array',
+            'characteristics' =>'required',
             'employee' => 'required',
             'reason' => 'required',
             'inventory_id' => 'required',

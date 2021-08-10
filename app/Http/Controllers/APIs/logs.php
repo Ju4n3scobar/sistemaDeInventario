@@ -22,7 +22,6 @@ class logs extends Controller
             $change_characteristics_exe = $change_characteristics_class->changeCharacteristics($request);
             if($change_characteristics_exe){
                     return response()->json([
-                        'Response' => 'Equipo actualizado correctamente',
                         $change_characteristics_exe
                     ], 201);
             }
@@ -98,7 +97,7 @@ class logs extends Controller
 
         return response()->json([
             $logs,
-            'Todas las caracteristicas, segun el id al registro que pertenecen, listas para ser mostradas' => $characteristics_response
+            $characteristics_response
         ]);
     
     }

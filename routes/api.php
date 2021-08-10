@@ -6,6 +6,8 @@ use App\Http\Controllers\APIs\Logs\ChangeCharacteristics;
 use App\Http\Controllers\APIs\Logs\ReassignEquipment;
 use App\Http\Controllers\APIs\Logs\RegisterEquipment;
 use App\Http\Controllers\APIs\Logs\ReturnCharacteristics;
+use App\Http\Services\ChangeCharacteristics as ServicesChangeCharacteristics;
+use App\Http\Services\RegisterEquipment as ServicesRegisterEquipment;
 use App\Models\Logs as ModelsLogs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -39,7 +41,7 @@ Route::post('changeCharacteristics', [logs::class, 'assignmentModelRequest']);
 
 Route::post('reassignEquipment', [ReassignEquipment::class, 'reassignEquipment']);
 
-Route::post('registerEquipment', [RegisterEquipment::class, 'registerEquipment']);
+Route::post('registerEquipment', [ServicesRegisterEquipment::class, 'registerEquipment']);
 
 Route::get('showCharacteristics', [ReturnCharacteristics::class, 'returnCharacteristics']);
 
